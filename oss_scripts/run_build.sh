@@ -24,10 +24,10 @@ if [ "$installed_bazel_version" != "$tf_bazel_version" ]; then
 fi
 
 # Set tensorflow version
-if [[ $osname != "Darwin" ]] || [[ ! $(sysctl -n machdep.cpu.brand_string) =~ "Apple" ]]; then
-  source oss_scripts/prepare_tf_dep.sh
-fi
+#if [[ $osname != "Darwin" ]] || [[ ! $(sysctl -n machdep.cpu.brand_string) =~ "Apple" ]]; then
+#  source oss_scripts/prepare_tf_dep.sh
+#fi
 
 # Build the pip package.
-bazel build --enable_runfiles oss_scripts/pip_package:build_pip_package
+bazel build --enable_runfiles oss_scripts/pip_package:build_pip_package --copt=-D_GLIBCXX_USE_CXX11_ABI=0
 ./bazel-bin/oss_scripts/pip_package/build_pip_package .
